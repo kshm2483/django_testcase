@@ -17,6 +17,26 @@ class BoardModelTest(TestCase):
     def test_01_model(self):
         board = Board.objects.create(title='test', content='test', user_id=1)
         self.assertEqual(str(board), f'Board{board.pk}', msg='출력 값이 일치하지 않음')
+        
+    def test_02_boardform(self):
+        data = {
+            'title': '제목',
+            'content': '내용'
+        }
+        self.assertEqual(BoardForm(data).is_valid(), True)
+    
+    def test_03_boardform_without_title(self):
+        data = {
+            'content': '내용'
+        }
+        self.assertEqual(BoardForm(data).is_valid(), False)
+    
+    def test_04_boardform_without_content(self):
+        data = {
+            'title': '제목'
+        }
+        self.assertEqual(BoardForm(data).is_valid(), False)
+    
     
 # 3. View test
 class BoardViewTest(TestCase):
