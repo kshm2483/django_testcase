@@ -11,6 +11,9 @@ class Board(models.Model):
     
     def __str__(self):
         return f'Board{self.pk}'
+        # 출력값 불일치 test
+        # return self.title
+        
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
