@@ -70,18 +70,23 @@ class BoardViewTest(TestCase):
             
     def test_05_detail_contains(self):
         # given
-        board = Board.objects.create(title='제목', content='내용', user=self.user)
-        # when
-        self.get_check_200('boards:detail', board_pk=board.pk)   
+        board = Board.objects.create(title='title', content='content', user=self.user)
         # then
         self.assertResponseContains(board.title, html=False)
         self.assertResponseContains(board.content, html=False)
         
-    def test_06_detail_template(self):
-        board = Board.objects.create(title='test title', content='test content', user=self.user)
-        response = self.get_check_200('boards:detail', board_pk=board.pk)
-        self.assertTemplateUsed(response, 'boards/detail.html')
-
+    # def test_06_detail_template(self):
+    #     board = Board.objects.create(title='test title', content='test content', user=self.user)
+    #     response = self.get_check_200('boards:detail', board_pk=board.pk)
+    #     self.assertTemplateUsed(response, 'boards/detail.html')
+    
+    # def test_06_detail_template(self):
+    #     # Given
+    #     board = Board.objects.create(title='test title', content='test content', user=self.user)
+    #     response = self.get_check_200('boards:detail', board_pk=board.pk)
+    #     self.assertTemplateUsed(response, 'boards/detail.html')
+    
+    
     def test_07_get_index(self):
         self.get_check_200('boards:index')
         
@@ -93,15 +98,15 @@ class BoardViewTest(TestCase):
         board = Board.objects.create(title='title', content='content', user=self.user)
         board = Board.objects.create(title='title', content='content', user=self.user)
         boards = Board.objects.order_by('-pk')
-        
+            self.get_check
         response = self.get_check_200('boards:index')
         
         self.assertQuerysetEqual(response.context['boards'], map(repr, boards))
         
-    def test_10_delete(self):
-        board = Board.objects.create(title='title', content='content', user=self.user)
-        with self.login(username='test', password='1qs2wd3ef!@#'):
-            self.get_check_200('boards:delete', board_pk=board.pk)
+    # def test_10_delete(self):
+    #     board = Board.objects.create(title='title', content='content', user=self.user)
+    #     with self.login(username='test', password='1qs2wd3ef!@#'):
+    #         self.get_check_200('boards:delete', board_pk=board.pk)
     
     def test_11_delete_post(self):
         board = Board.objects.create(title='title', content='content', user=self.user)
@@ -123,3 +128,4 @@ class BoardViewTest(TestCase):
             
     def test_14_get_update_login_required(self):
         self.assertLoginRequired('boards:update', board_pk=1)
+            
